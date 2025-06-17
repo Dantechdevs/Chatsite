@@ -1,0 +1,96 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login | Chatsite{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #007bff; /* Bootstrap blue */
+  }
+
+  .login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 480px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .login-card {
+      background-color: #1e1e2f;
+      color: #f5f5f5;
+    }
+
+    .login-card a {
+      color: #4dabf7;
+    }
+  }
+
+  .logo-img {
+    width: 60px;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div class="login-container">
+  <div class="login-card text-center">
+    {# Optional logo #}
+    {# <img src="{% static 'main/images/chatsite-logo.png' %}" alt="Chatsite Logo" class="logo-img"> #}
+    <h2 class="mb-3 fw-bold">Welcome Back!</h2>
+    <p class="text-muted">Log in to continue to <strong>Chatsite</strong></p>
+
+    <form method="post" novalidate class="text-start mt-4">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <div class="d-grid gap-2 mt-3">
+        <button type="submit" class="btn btn-primary btn-lg shadow-sm">Log In</button>
+      </div>
+
+      <div class="text-center mt-3">
+        <small>
+          Don't have an account?
+          <a href="/register" class="text-decoration-none fw-semibold">Register here</a>
+        </small>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="loginToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Welcome back to Chatsite!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Show toast on page load -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const toastEl = document.getElementById('loginToast');
+    if (toastEl) {
+      const toast = new bootstrap.Toast(toastEl);
+      toast.show();
+    }
+  });
+</script>
+{% endblock %}

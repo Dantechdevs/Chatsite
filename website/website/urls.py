@@ -20,5 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),  # Include the main app's URLs
+    path('', include('main.urls')), 
+    path('', include('django.contrib.auth.urls')),
 ]
