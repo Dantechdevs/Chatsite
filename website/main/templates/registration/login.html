@@ -4,12 +4,23 @@
 {% block title %}Login | Chatsite{% endblock %}
 
 {% block content %}
+<!-- Fonts & Styles -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #007bff; /* Bootstrap blue */
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #007bff, #0056b3, #003b80);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   .login-container {
@@ -22,11 +33,16 @@
   .login-card {
     background-color: #ffffff;
     border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 2.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
     max-width: 480px;
     width: 100%;
-    transition: background-color 0.3s ease;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -46,9 +62,9 @@
   }
 </style>
 
+<!-- Login Form -->
 <div class="login-container">
   <div class="login-card text-center">
-    {# Optional logo #}
     {# <img src="{% static 'main/images/chatsite-logo.png' %}" alt="Chatsite Logo" class="logo-img"> #}
     <h2 class="mb-3 fw-bold">Welcome Back!</h2>
     <p class="text-muted">Log in to continue to <strong>Chatsite</strong></p>
@@ -73,17 +89,18 @@
 
 <!-- Toast Notification -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="loginToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
+  <div id="loginToast" class="toast align-items-center text-white bg-success border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex align-items-center">
+      <img src="https://ui-avatars.com/api/?name=C+S&background=0D8ABC&color=fff&size=32" class="rounded-circle me-2" alt="User">
       <div class="toast-body">
         Welcome back to Chatsite!
       </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-white ms-2 me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
 </div>
 
-<!-- Show toast on page load -->
+<!-- Show Toast on Load -->
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const toastEl = document.getElementById('loginToast');
