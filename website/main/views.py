@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm  
+from django.contrib.auth import login, logout, authenticate
 
 
 def home(request):
@@ -10,8 +11,9 @@ def sign_up(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')  # ✅ or any success page you want
+            user = form.save()
+            login(request, user)
+            return redirect('/home')  # ✅ or any success page you want
     else:
         form = RegisterForm()
     
